@@ -1,3 +1,4 @@
+using AttachmentScrolling.Config;
 using EFT.UI;
 using System;
 using UnityEngine;
@@ -8,8 +9,21 @@ namespace AttachmentScrolling.Components;
 
 public class AttachmentScrollComponent : MonoBehaviour
 {
+    public static AttachmentScrollComponent Instance;
+    
+    private ScrollRect _scrollRect;
+    private GridLayoutGroup _contentGrid;
+    private RectTransform _dropDownRect;
+    
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+        }
+        
+        Instance = this;
+        
         Transform previewPanel = GameObject.Find("Preview Panel").transform;
         Transform dropDown = previewPanel.transform.Find("DropdownMenu");
 
@@ -26,7 +40,7 @@ public class AttachmentScrollComponent : MonoBehaviour
         RectMask2D rectMask = dropDown.gameObject.AddComponent<RectMask2D>();
         ScrollRect scrollRect = dropDown.gameObject.AddComponent<ScrollRect>();
         scrollRect.content = containerRect;
-        scrollRect.scrollSensitivity = 32f;
+        scrollRect.scrollSensitivity = GeneralConfig.ScrollSpeed.Value;
         scrollRect.horizontal = false;
         
         // update dropdown size fitter
@@ -39,10 +53,29 @@ public class AttachmentScrollComponent : MonoBehaviour
         contentGrid.padding.top = 5;
         contentGrid.padding.bottom = 5;
         contentGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        contentGrid.constraintCount = 5;
+        contentGrid.constraintCount = GeneralConfig.GridColumns.Value;
         
         // fix dropdown rect size
         RectTransform rect = dropDown.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(rect.sizeDelta.x, 420);
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, GeneralConfig.ViewHeight.Value);
+
+        _scrollRect = scrollRect;
+        _contentGrid = contentGrid;
+        _dropDownRect = rect;
+    }
+
+    public void SetScrollSpeed(float speed)
+    {
+        _scrollRect.scrollSensitivity = speed;
+    }
+
+    public void SetGridColumns(int cols)
+    {
+        _contentGrid.constraintCount = cols;
+    }
+
+    public void SetViewHeight(float height)
+    {
+        _dropDownRect.sizeDelta = new Vector2(_dropDownRect.sizeDelta.x, height);
     }
 }

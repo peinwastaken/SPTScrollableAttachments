@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttachmentScrolling", "AttachmentScrolling\AttachmentScrolling.csproj", "{73EC5C3D-0832-450A-8C4F-79896051A350}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollableAttachments", "ScrollableAttachments\ScrollableAttachments.csproj", "{73EC5C3D-0832-450A-8C4F-79896051A350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

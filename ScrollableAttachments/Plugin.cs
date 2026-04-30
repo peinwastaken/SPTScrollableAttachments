@@ -1,10 +1,11 @@
-﻿using BepInEx;
+﻿using AttachmentScrolling.Config;
+using BepInEx;
 using BepInEx.Logging;
 using SPT.Reflection.Patching;
 
 namespace AttachmentScrolling;
 
-[BepInPlugin("com.pein.attachmentscrolling", "AttachmentScrolling", "1.0.0")]
+[BepInPlugin("com.pein.attachmentscrolling", "ScrollableAttachments", "1.0.0")]
 public class Plugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
@@ -15,7 +16,7 @@ public class Plugin : BaseUnityPlugin
 
         var patchManager = new PatchManager(this, true);
         patchManager.EnablePatches();
-        
-        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+
+        GeneralConfig.Initialize(Config);
     }
 }
