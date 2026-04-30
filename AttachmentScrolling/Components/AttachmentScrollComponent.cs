@@ -1,0 +1,48 @@
+using EFT.UI;
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+
+namespace AttachmentScrolling.Components;
+
+public class AttachmentScrollComponent : MonoBehaviour
+{
+    private void Awake()
+    {
+        Transform previewPanel = GameObject.Find("Preview Panel").transform;
+        Transform dropDown = previewPanel.transform.Find("DropdownMenu");
+
+        Transform emptyItem = dropDown.Find("ItemViewContainer");
+        Transform container = dropDown.Find("Container");
+        
+        RectTransform containerRect = container.GetComponent<RectTransform>();
+
+        // reposition empty item to be inside our scroll content instead
+        emptyItem.parent = container;
+        emptyItem.SetSiblingIndex(0);
+        
+        // set up rect mask and scroll rect
+        RectMask2D rectMask = dropDown.gameObject.AddComponent<RectMask2D>();
+        ScrollRect scrollRect = dropDown.gameObject.AddComponent<ScrollRect>();
+        scrollRect.content = containerRect;
+        scrollRect.scrollSensitivity = 32f;
+        scrollRect.horizontal = false;
+        
+        // update dropdown size fitter
+        ContentSizeFitter fitter = dropDown.GetComponent<ContentSizeFitter>();
+        fitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+        fitter.horizontalFit = ContentSizeFitter.FitMode.MinSize;
+        
+        // update dropdown content grid
+        GridLayoutGroup contentGrid = container.GetComponent<GridLayoutGroup>();
+        contentGrid.padding.top = 5;
+        contentGrid.padding.bottom = 5;
+        contentGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        contentGrid.constraintCount = 5;
+        
+        // fix dropdown rect size
+        RectTransform rect = dropDown.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, 420);
+    }
+}

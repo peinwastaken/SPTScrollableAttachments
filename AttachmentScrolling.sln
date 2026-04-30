@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttachmentScrolling", "AttachmentScrolling\AttachmentScrolling.csproj", "{73EC5C3D-0832-450A-8C4F-79896051A350}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73EC5C3D-0832-450A-8C4F-79896051A350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73EC5C3D-0832-450A-8C4F-79896051A350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73EC5C3D-0832-450A-8C4F-79896051A350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73EC5C3D-0832-450A-8C4F-79896051A350}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
