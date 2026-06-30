@@ -1,9 +1,8 @@
 using AttachmentScrolling.Config;
 using EFT.UI;
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace AttachmentScrolling.Components;
 
@@ -14,6 +13,8 @@ public class AttachmentScrollComponent : MonoBehaviour
     private ScrollRect _scrollRect;
     private GridLayoutGroup _contentGrid;
     private RectTransform _dropDownRect;
+    
+    public bool HoveringDropdown;
     
     private void Awake()
     {
@@ -58,6 +59,18 @@ public class AttachmentScrollComponent : MonoBehaviour
         // fix dropdown rect size
         RectTransform rect = dropDown.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, GeneralConfig.ViewHeight.Value);
+        
+        // add hovertrigger to dropdown itself
+        HoverTrigger trigger = dropDown.gameObject.AddComponent<HoverTrigger>();
+        trigger.OnHoverStart += (_) =>
+        {
+            HoveringDropdown = true;
+        };
+        
+        trigger.OnHoverEnd += (_) =>
+        {
+            HoveringDropdown = false;
+        };
 
         _scrollRect = scrollRect;
         _contentGrid = contentGrid;
