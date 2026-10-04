@@ -3,6 +3,7 @@ using EFT.UI;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
+using UnityEngine.EventSystems;
 
 namespace AttachmentScrolling.Patches;
 
@@ -14,8 +15,8 @@ public class ScrollTriggerDisablePatch : ModulePatch
     }
 
     [PatchPrefix]
-    private static bool PatchPrefix()
+    private static bool PatchPrefix(ScrollTrigger __instance, PointerEventData eventData)
     {
-        return !AttachmentScrollComponent.Instance.HoveringDropdown;
+        return !AttachmentScrollComponent.IsScrollSuppressed(__instance, eventData);
     }
 }

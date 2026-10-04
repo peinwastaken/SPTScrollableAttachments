@@ -17,6 +17,6 @@ public class WeaponModdingWakePatch : ModulePatch
     [PatchPostfix]
     private static void PatchPostfix(WeaponModdingScreen __instance)
     {
-        __instance.RectTransform.gameObject.AddComponent<AttachmentScrollComponent>();
+        AttachmentScrollComponent.Attach(__instance._menu, __instance.RectTransform);
     }
 }
