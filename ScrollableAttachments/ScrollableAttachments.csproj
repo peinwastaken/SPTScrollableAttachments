@@ -2,49 +2,75 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <Product>AttachmentScrolling</Product>
-        <Version>1.1.0</Version>
+        <AssemblyName>$(ModName)</AssemblyName>
+        <RootNamespace>AttachmentScrolling</RootNamespace>
+        <Product>$(ModDisplayName)</Product>
+        <Authors>$(ModAuthor)</Authors>
+        <RepositoryUrl>$(ModSourceRepository)</RepositoryUrl>
+        <Description>$(ModDisplayName) client plugin for SPT $(SupportedSptVersion).</Description>
+        <PackageId>$(ModName)</PackageId>
+        <Version>$(ModVersion)</Version>
+        <AssemblyVersion>$(ModVersion)</AssemblyVersion>
+        <FileVersion>$(ModVersion)</FileVersion>
+        <InformationalVersion>$(ModVersion)</InformationalVersion>
+        <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
-        <RestoreAdditionalProjectSources>
-            https://api.nuget.org/v3/index.json;
-            https://nuget.bepinex.dev/v3/index.json;
-            https://nuget.samboy.dev/v3/index.json
-        </RestoreAdditionalProjectSources>
-        <RootNamespace>AttachmentScrolling</RootNamespace>
-        <PackageId>ScrollableAttachments</PackageId>
         <SPTModType>Client</SPTModType>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
-        <PackageReference Include="BepInEx.Core" Version="5.*"/>
-        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
-        <PackageReference Include="UnityEngine.Modules" Version="2019.4.39" IncludeAssets="compile"/>
+        <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+            <_Parameter1>SupportedSptVersion</_Parameter1>
+            <_Parameter2>$(SupportedSptVersion)</_Parameter2>
+        </AssemblyAttribute>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="0Harmony">
-        <HintPath>..\..\..\BepInEx\core\0Harmony.dll</HintPath>
-      </Reference>
-      <Reference Include="Assembly-CSharp">
-        <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
-      </Reference>
-      <Reference Include="BepInEx">
-        <HintPath>..\..\..\BepInEx\core\BepInEx.dll</HintPath>
-      </Reference>
-      <Reference Include="Sirenix.Serialization">
-        <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\Sirenix.Serialization.dll</HintPath>
-      </Reference>
-      <Reference Include="spt-reflection">
-        <HintPath>..\..\..\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UI">
-        <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
-      </Reference>
+    <ItemGroup Condition="'$(SPTPath)' != ''">
+        <Reference Include="0Harmony">
+            <HintPath>$(BepInExCoreDir)\0Harmony.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(SptManagedDir)\Assembly-CSharp.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="BepInEx">
+            <HintPath>$(BepInExCoreDir)\BepInEx.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Sirenix.Serialization">
+            <HintPath>$(SptManagedDir)\Sirenix.Serialization.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="spt-reflection">
+            <HintPath>$(SptPluginsDir)\spt-reflection.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(SptManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(SptManagedDir)\UnityEngine.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.InputModule">
+            <HintPath>$(SptManagedDir)\UnityEngine.InputModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(SptManagedDir)\UnityEngine.UI.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>$(SptManagedDir)\UnityEngine.UIModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ZLinq">
+            <HintPath>$(UnityToolkitDir)\ZLinq.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
     </ItemGroup>
 </Project>

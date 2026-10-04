@@ -16,6 +16,6 @@ public class EditBuildAwakePatch : ModulePatch
     [PatchPostfix]
     private static void PatchPostfix(EditBuildScreen __instance)
     {
-        __instance.RectTransform.gameObject.AddComponent<AttachmentScrollComponent>();
+        AttachmentScrollComponent.Attach(__instance._menu, __instance.RectTransform);
     }
 }

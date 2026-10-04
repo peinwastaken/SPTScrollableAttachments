@@ -1,11 +1,12 @@
-﻿using AttachmentScrolling.Config;
+using AttachmentScrolling.Config;
+using AttachmentScrolling.Patches;
 using BepInEx;
 using BepInEx.Logging;
-using SPT.Reflection.Patching;
 
 namespace AttachmentScrolling;
 
-[BepInPlugin("com.pein.attachmentscrolling", "ScrollableAttachments", "1.1.0")]
+[BepInPlugin(ModInfo.Guid, ModInfo.Name, ModInfo.Version)]
+[BepInDependency("com.arys.unitytoolkit", "2.0.2")]
 public class Plugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
@@ -14,9 +15,10 @@ public class Plugin : BaseUnityPlugin
     {
         Logger = base.Logger;
 
-        var patchManager = new PatchManager(this, true);
-        patchManager.EnablePatches();
-
         GeneralConfig.Initialize(Config);
+
+        new EditBuildAwakePatch().Enable();
+        new WeaponModdingWakePatch().Enable();
+        new ScrollTriggerDisablePatch().Enable();
     }
 }
